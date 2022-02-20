@@ -1,0 +1,11 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('titulo', "Instalación"); ?>
+<?php $this->startSection('encabezado', "Instalación"); ?>
+<?php $this->startSection('contenido'); ?>
+<div class="container text-center">
+ <form action="crearDatos.php" method="POST">
+ <button class="btn btn-success" type="submit" name="instalar"><i class="fa-solid fa-database"></i> Instalar Datos de Ejemplo</button>
+ </form>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('app'); } ?>

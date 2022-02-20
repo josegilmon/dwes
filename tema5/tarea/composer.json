@@ -1,0 +1,25 @@
+{
+    "name": "dwes/jagm",
+    "description": "Tarea DWES05",
+    "type": "project",
+    "require": {
+        "eftec/bladeone": "^4.2",
+        "milon/barcode": "^8.0",
+        "fakerphp/faker": "^1.17",
+        "composer/composer": "^2.2"
+    },
+    "license": "GPL",
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "eftec\\": "vendor/eftec/",
+            "App\\": "model/"
+        }
+    },
+    "authors": [{
+        "name": "Jose Antonio Gil",
+        "email": "jose.gil25@educa.madrid.org"
+    }]
+}

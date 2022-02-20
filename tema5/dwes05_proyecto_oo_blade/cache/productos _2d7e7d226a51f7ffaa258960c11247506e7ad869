@@ -1,0 +1,33 @@
+<?php $_shouldextend['61db0356bb2b4']=1; ?>
+<?php $this->startSection('titulo', "Productos"); ?>
+<?php $this->startSection('encabezado', "Listado de Productos"); ?>
+<?php $this->startSection('contenido'); ?>
+<table class="table table-striped">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Código</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Nombre Corto</th>
+            <th scope="col">Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $__currentLoopData = $productos; $this->addLoop($__currentLoopData); foreach($__currentLoopData as $producto): $this->incrementLoopIndices(); $loop = $this->getFirstLoop(); ?>
+        <tr class="text-center">
+            <th scope="row"><?php echo static::e($producto->getId()); ?></th>
+            <td><?php echo static::e($producto->getNombre()); ?></td>
+            <td><?php echo static::e($producto->getNombreCorto()); ?></td>
+            <?php if($producto->getPvp()>100): ?>
+            <td class='text-danger'><?php echo static::e($producto->getPvp()); ?></td>
+            <?php else: ?>
+            <td class='text-success'><?php echo static::e($producto->getPvp()); ?></td>
+            <?php endif; ?>
+        </tr>
+        <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+    </tbody>
+</table>
+<div class="container mt-5 text-center">
+    <a href="login.php" class="btn btn-info">Volver</a>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (@$_shouldextend['61db0356bb2b4']) { echo $this->runChild('app'); } ?>

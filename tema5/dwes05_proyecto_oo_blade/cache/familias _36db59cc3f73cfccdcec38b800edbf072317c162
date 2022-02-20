@@ -1,0 +1,26 @@
+<?php $_shouldextend['61db053380344']=1; ?>
+<?php $this->startSection('titulo', "Familias"); ?>
+<?php $this->startSection('encabezado', "Listado de Familias"); ?>
+
+<?php $this->startSection('contenido'); ?>
+<table class="table table-striped">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Código</th>
+            <th scope="col">Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $__currentLoopData = $familias; $this->addLoop($__currentLoopData); foreach($__currentLoopData as $familia): $this->incrementLoopIndices(); $loop = $this->getFirstLoop(); ?>
+        <tr class="text-center">
+            <th scope="row"><?php echo static::e($familia->getCod()); ?></th>
+            <td><?php echo static::e($familia->getNombre()); ?></td>
+        </tr>
+        <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+    </tbody>
+</table>
+<div class="container mt-5 text-center">
+    <a href="login.php" class="btn btn-info">Volver</a>
+</div>
+<?php $this->stopSection(); ?>
+<?php if (@$_shouldextend['61db053380344']) { echo $this->runChild('app'); } ?>

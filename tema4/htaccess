@@ -1,0 +1,4 @@
+AuthName "Contenido restringido"
+AuthType Basic
+AuthUserFile c:\xampp\apache\users.pass
+Require valid-user

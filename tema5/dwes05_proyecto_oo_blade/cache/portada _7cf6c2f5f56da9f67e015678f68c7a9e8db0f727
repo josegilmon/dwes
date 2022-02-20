@@ -1,0 +1,8 @@
+<?php $_shouldextend['61db0c821bb0d']=1; ?>
+<?php $this->startSection('titulo', "Portada"); ?>
+<?php $this->startSection('encabezado', "Acceder a la información"); ?>
+<?php $this->startSection('contenido'); ?>
+    <a href="productos.php" class="btn btn-info mr-4">Acceder a Productos</a>
+    <a href="familias.php" class="mr-4 btn btn-info">Acceder a Familias</a>
+<?php $this->stopSection(); ?>
+<?php if (@$_shouldextend['61db0c821bb0d']) { echo $this->runChild('app'); } ?>
