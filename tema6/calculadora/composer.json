@@ -1,0 +1,23 @@
+{
+    "name": "jagil/calculadora",
+    "description": "Prueba wsdl",
+    "type": "project",
+    "license": "gnu/gpl",
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jose Antonio Gil",
+            "email": "joseantonio.gil@intelygenz.com"
+        }
+    ],
+    "require": {
+        "wsdl2phpgenerator/wsdl2phpgenerator": "^3.4"
+    }
+}

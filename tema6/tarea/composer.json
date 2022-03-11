@@ -1,0 +1,18 @@
+{
+    "name": "jagil/tarea",
+    "require": {
+        "wsdl2phpgenerator/wsdl2phpgenerator": "^3.4",
+        "php2wsdl/php2wsdl": "^0.6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tarea\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jose Antonio Gil",
+            "email": "jose.gil25@educa.madrid.org"
+        }
+    ]
+}
