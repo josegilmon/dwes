@@ -58,13 +58,13 @@ class Familia {
 
 
     
-    public static function recuperaFamilia(PDO $bd, int $codigo): ?Familia {
+    public static function recuperaFamilias(PDO $bd): ?array {
         $bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
-        $sql = "SELECT * FROM familias where cod = :cod";
+        $sql = "SELECT * FROM familias";
         $sth = $bd->prepare($sql);
-        $sth->execute([':cod' => $codigo]);
+        $sth->execute();
         $sth->setFetchMode(PDO::FETCH_CLASS, Familia::class);
-        return ($sth->fetch()) ?: null;
+        return ($sth->fetchAll());
     }
     
     public function persiste(PDO $bd) : bool {    

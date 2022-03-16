@@ -10,7 +10,7 @@ class BD
     const DB_PORT = '3306';
     const DB_DATABASE = 'proyecto';
     const DB_USERNAME = 'root';
-    const DB_PASSWORD = 'abbyl40L.';
+    const DB_PASSWORD = '';
     
     private function __construct()
     {

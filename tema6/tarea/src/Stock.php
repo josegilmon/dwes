@@ -80,20 +80,29 @@ class Stock {
     
     public static function recuperaStockPorProducto(PDO $bd, int $producto): ?array {
         $bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
-        $sql = "SELECT * FROM stock where producto = :producto";
+        $sql = "SELECT * FROM stocks WHERE producto = :producto";
         $sth = $bd->prepare($sql);
         $sth->execute([':producto' => $producto]);
         $sth->setFetchMode(PDO::FETCH_CLASS, Stock::class);
         return ($sth->fetchAll());
     }
     
-    public static function recuperaStockPorFamilia(PDO $bd, string $familia): ?array {
+    public static function recuperaStockPorTienda(PDO $bd, string $tienda): ?array {
         $bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
-        $sql = "SELECT * FROM productos where familia = :familia";
+        $sql = "SELECT * FROM stocks WHERE tienda = :tienda";
         $sth = $bd->prepare($sql);
-        $sth->execute([':familia' => $familia]);
+        $sth->execute([':tienda' => $tienda]);
         $sth->setFetchMode(PDO::FETCH_CLASS, Stock::class);
         return ($sth->fetchAll());
+    }
+    
+    public static function recuperaStockPorProductoyTienda(PDO $bd, string $producto, string $tienda): ?Stock {
+        $bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+        $sql = "SELECT * FROM stocks WHERE producto = :producto AND tienda = :tienda";
+        $sth = $bd->prepare($sql);
+        $sth->execute([':producto' => $producto, ':tienda' => $tienda]);
+        $sth->setFetchMode(PDO::FETCH_CLASS, Stock::class);
+        return ($sth->fetch()) ?: null;
     }
     
     public function persiste(PDO $bd) : bool {    

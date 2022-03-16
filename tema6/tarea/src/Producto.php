@@ -8,7 +8,7 @@ class Producto {
 
     private $id;
     private $nombre;
-    private $nombreCorto;
+    private $nombre_corto;
     private $descripcion;
     private $pvp;
     private $familia;
@@ -52,12 +52,19 @@ class Producto {
     }
 
     /**
+     * Get the short name
+     */ 
+    public function getNombreCorto() {
+        return $this->nombre_corto;
+    }
+
+    /**
      * Set the value of nombreCorto
      *
      * @return  self
      */ 
     public function setNombreCorto($nombreCorto) {
-        $this->nombreCorto = $nombreCorto;
+        $this->nombre_corto = $nombreCorto;
 
         return $this;
     }

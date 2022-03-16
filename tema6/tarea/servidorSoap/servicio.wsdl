@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://dwes/tema6/tarea/servidorSoap/servicioW.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Tarea.Operaciones" targetNamespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php">
+  <types>
+    <xsd:schema targetNamespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="Tarea.OperacionesPort">
+    <operation name="getPVP">
+      <documentation>Esta funci&#xF3;n recibe como par&#xE1;metro el c&#xF3;digo de un producto y devuelve el PVP del mismo</documentation>
+      <input message="tns:getPVPIn"/>
+      <output message="tns:getPVPOut"/>
+    </operation>
+    <operation name="getStock">
+      <documentation>Esta funci&#xF3;n recibe dos par&#xE1;metros: el c&#xF3;digo de un producto y el c&#xF3;digo de una tienda. Devuelve el stock existente del producto en dicha tienda.</documentation>
+      <input message="tns:getStockIn"/>
+      <output message="tns:getStockOut"/>
+    </operation>
+    <operation name="getFamilias">
+      <documentation>No recibe par&#xE1;metros y devuelve un array con los c&#xF3;digos de todas las familias existentes.</documentation>
+      <input message="tns:getFamiliasIn"/>
+      <output message="tns:getFamiliasOut"/>
+    </operation>
+    <operation name="getProductosFamilia">
+      <documentation>Recibe como par&#xE1;metro el c&#xF3;digo de una familia y devuelve un array con los c&#xF3;digos de todos los productos de esa familia.</documentation>
+      <input message="tns:getProductosFamiliaIn"/>
+      <output message="tns:getProductosFamiliaOut"/>
+    </operation>
+  </portType>
+  <binding name="Tarea.OperacionesBinding" type="tns:Tarea.OperacionesPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getPVP">
+      <soap:operation soapAction="http://dwes/tema6/tarea/servidorSoap/servicioW.php#getPVP"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </output>
+    </operation>
+    <operation name="getStock">
+      <soap:operation soapAction="http://dwes/tema6/tarea/servidorSoap/servicioW.php#getStock"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </output>
+    </operation>
+    <operation name="getFamilias">
+      <soap:operation soapAction="http://dwes/tema6/tarea/servidorSoap/servicioW.php#getFamilias"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </output>
+    </operation>
+    <operation name="getProductosFamilia">
+      <soap:operation soapAction="http://dwes/tema6/tarea/servidorSoap/servicioW.php#getProductosFamilia"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+      </output>
+    </operation>
+  </binding>
+  <message name="getPVPIn">
+    <part name="codigo" type="xsd:string"/>
+  </message>
+  <message name="getPVPOut">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <message name="getStockIn">
+    <part name="codigo" type="xsd:string"/>
+    <part name="tienda" type="xsd:string"/>
+  </message>
+  <message name="getStockOut">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <message name="getFamiliasIn"/>
+  <message name="getFamiliasOut">
+    <part name="return" type="soap-enc:Array"/>
+  </message>
+  <message name="getProductosFamiliaIn">
+    <part name="familia" type="xsd:string"/>
+  </message>
+  <message name="getProductosFamiliaOut">
+    <part name="return" type="soap-enc:Array"/>
+  </message>
+  <service name="Tarea.OperacionesService">
+    <port name="Tarea.OperacionesPort" binding="tns:Tarea.OperacionesBinding">
+      <soap:address location="http://dwes/tema6/tarea/servidorSoap/servicioW.php"/>
+    </port>
+  </service>
+</definitions>

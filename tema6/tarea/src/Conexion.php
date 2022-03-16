@@ -11,7 +11,7 @@ class Conexion {
     const DB_PORT = '3306';
     const DB_DATABASE = 'tarea6';
     const DB_USERNAME = 'root';
-    const DB_PASSWORD = 'abbyl40L.';
+    const DB_PASSWORD = '';
 
     protected static $bd = null;
     protected static $instance = null;
