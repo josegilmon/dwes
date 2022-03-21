@@ -36,12 +36,12 @@ $operaciones = new TareaOperacionesService();
     </p>
 
     <p>
-        Productos por familia:
+        Productos por familia: Memorias Flash
         <ul>
             <?php
                 $productos = $operaciones->getProductosFamilia('MEMFLA');
                 foreach($productos as $producto) {
-                    echo "<li>" . $producto->nombre_corto . "</li>";
+                    echo "<li>" . $producto->nombre . "</li>";
                 }
             ?>
         </ul>

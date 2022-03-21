@@ -21,7 +21,10 @@ class Operaciones {
         $bd = Conexion::getConexion();
         $producto = Producto::recuperaProducto($bd, $codigo);
 
-        return $producto->getPVP();
+        if ($producto != null) {
+            return $producto->getPVP();
+        }
+        return 0;
     }
 
     /**
@@ -37,7 +40,10 @@ class Operaciones {
         $bd = Conexion::getConexion();
         $stock = Stock::recuperaStockPorProductoyTienda($bd, $codigo, $tienda);
 
-        return $stock->getUnidades();
+        if ($stock != null) {
+            return $stock->getUnidades();
+        }
+        return 0;
     }
 
     /**
@@ -66,7 +72,10 @@ class Operaciones {
         $bd = Conexion::getConexion();
         $productos = Producto::recuperaProductosPorFamilia($bd, $familia);
         
-        return $productos;
+        if ($productos != null) {
+            return $productos;
+        }
+        return [];
     }
 
 }
