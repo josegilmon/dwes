@@ -1,0 +1,19 @@
+{
+    "name": "jagm/tarea7",
+    "description": "Tarea tema 7 DWES",
+    "require": {
+        "eftec/bladeone": "^4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "eftec\\": "vendor/eftec/",
+            "App\\": "model/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jose Antonio Gil",
+            "email": "jose.gil25@educa.madrid.org"
+        }
+    ]
+}
