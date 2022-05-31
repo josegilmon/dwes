@@ -1,0 +1,20 @@
+{
+    "name": "joseg/repartos",
+    "require": {
+        "google/apiclient": "^2.12",
+        "vlucas/phpdotenv": "^5.4",
+        "eftec/bladeone": "^4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Model\\": "model/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jose Antonio Gil",
+            "email": "josegilmon@gmail.com"
+        }
+    ]
+}
