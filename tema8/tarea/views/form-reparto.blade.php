@@ -33,7 +33,7 @@
                         <!--input type="text" class="form-control" placeholder="Producto" id='producto' name="producto" required-->
                         <select class="form-control" placeholder="Producto" id="producto" name="producto" required>
                         @foreach($productos as $producto)
-                            <option value="{{$producto->getId()}}">{{$producto->getNombre()}}</option>
+                            <option value="{{$producto->getNombre()}}">{{$producto->getNombre()}}</option>
                         @endforeach
                         </select>
                     </div>

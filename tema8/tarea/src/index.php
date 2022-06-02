@@ -29,7 +29,7 @@ $dotenv->load();
 
 // Se configura el cliente OAuth de Google
 
-$redirect_uri = 'http://localhost/dwes/tema8/repartos/src/';
+$redirect_uri = 'http://localhost/dwes/tema8/tarea/src/';
 $client = new Google_Client();
 $client->setApplicationName('Google Tasks API PHP');
 $client->setAuthConfig('../credentials.json');
@@ -46,6 +46,9 @@ if (isset($_GET['code'])) {
     $listasReparto = ListaReparto::recuperaListasReparto($servicio);
     echo $blade->run("repartos", compact('listasReparto'));
     die;
+} else if (isset($_GET['reset'])) {
+    session_destroy();
+    header("Location:$redirect_uri");
 } else if (!empty($_SESSION['token'])) { // Si tengo el token de acceso guardado en la sesión
     $client->setAccessToken($_SESSION['token']);
     if ($client->isAccessTokenExpired()) { // Si el token de acceso ha expirado
@@ -53,11 +56,22 @@ if (isset($_GET['code'])) {
     } else { //si el token de acceso es válido
         $servicio = new Google_Service_Tasks($client); // Creo el servicio de cliente con Google Tasks API
         if (isset($_POST['nueva-lista-repartos'])) { // Si se solicita la creación de una nueva lista de repartos
-            $nombreListaReparto = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
-            $listaReparto = new ListaReparto($nombreListaReparto);
-            $listaReparto->persiste($servicio);
+            //$nombreListaReparto = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+            $error = null;
+            $fechaListaReparto = filter_input(INPUT_POST, 'fecha', FILTER_SANITIZE_STRING);
+            $nombreListaReparto = "Repartos $fechaListaReparto";
             $listasReparto = ListaReparto::recuperaListasReparto($servicio);
-            echo $blade->run("repartos", compact('listasReparto'));
+            foreach($listasReparto as $lista) {
+                if ($lista->getNombre() == $nombreListaReparto) {
+                    $error = "Ya existe una lista con este nombre";
+                }
+            }
+            if (!isset($error)) {
+                $listaReparto = new ListaReparto($nombreListaReparto);
+                $listaReparto->persiste($servicio);
+                $listasReparto = ListaReparto::recuperaListasReparto($servicio);
+            }
+            echo $blade->run("repartos", compact('listasReparto', 'error'));
             die;
         } if (isset($_POST['borra-lista-reparto'])) { // Si se solicita que se borre una lista de reparto
             $listaRepartoId = filter_input(INPUT_POST, 'lista-reparto-id', FILTER_SANITIZE_STRING);
@@ -67,7 +81,7 @@ if (isset($_GET['code'])) {
             $listasReparto = ListaReparto::recuperaListasReparto($servicio);
             echo $blade->run("repartos", compact('listasReparto'));
             die;
-        }if (isset($_POST['pet-nuevo-reparto'])) { // Si se solicita el formulario para crear un reparto
+        } if (isset($_POST['pet-nuevo-reparto'])) { // Si se solicita el formulario para crear un reparto
 
             try {
                 $bd = BD::getConexion();
@@ -106,10 +120,26 @@ if (isset($_GET['code'])) {
             $lon = filter_input(INPUT_POST, 'lon', FILTER_SANITIZE_STRING);
             echo $blade->run("mapa", compact('lat', 'lon'));
             die;
-        }if (isset($_POST['ver-coordenadas'])) { // Si se solicita que se envíen las coordenadas de una dirección
+        } if (isset($_POST['mapa-ruta'])) {
+
+            $listaRepartoId = filter_input(INPUT_POST, 'lista-reparto-id', FILTER_SANITIZE_STRING);
+            $listaReparto = ListaReparto::recuperaListaReparto($servicio, $listaRepartoId);
+
+            $servicioMap = new ServicioMap();
+            $ruta = $servicioMap->getRutaOptimizada($listaReparto->getRepartos());
+
+            $points = implode("|", array_map(fn($x) => "{$x["actualStart"]["coordinates"][0]},{$x["actualStart"]["coordinates"][1]}", $ruta["routeLegs"]));
+            $routePath = implode("|", array_map(fn($x) => "{$x[0]},{$x[1]}", $ruta["routePath"]["line"]["coordinates"]));
+
+            echo $blade->run("ruta", compact('points', 'routePath'));
+            die;
+        } if (isset($_POST['ver-coordenadas'])) { // Si se solicita que se envíen las coordenadas de una dirección
             $direccion = filter_input(INPUT_POST, 'direccion', FILTER_SANITIZE_STRING);
             $servicioMap = new ServicioMap();
             $coordenadas = $servicioMap->getCoordenadas($direccion);
+
+            $coordenadas["alt"] = $servicioMap->getAltitud($coordenadas['lat'], $coordenadas['lon']);
+
             header('Content-type: application/json');
             echo json_encode($coordenadas);
             die;
@@ -123,8 +153,9 @@ if (isset($_GET['code'])) {
             echo json_encode(compact('listaRepartoId', 'ordenRepartos'));
             die;
         } else { // En otro caso muestra el listado de las listas de reparto
+            $fechaMinima = date("Y-m-d");
             $listasReparto = ListaReparto::recuperaListasReparto($servicio);
-            echo $blade->run("repartos", compact('listasReparto'));
+            echo $blade->run("repartos", compact('listasReparto', 'fechaMinima'));
             die;
         }
     }

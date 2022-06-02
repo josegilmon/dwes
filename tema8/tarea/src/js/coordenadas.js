@@ -14,6 +14,7 @@ function getCoordenadas(e) {
         {
             $(this).find("#lat").val(respuesta.lat);
             $(this).find("#lon").val(respuesta.lon);
+            $(this).find("#alt").val(respuesta.alt);
             $(this).find("#nuevo_reparto").prop('disabled', false);
         },
         error: function (xhr, ajaxOptions, thrownError) {
